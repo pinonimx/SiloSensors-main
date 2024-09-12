@@ -38,18 +38,24 @@ app.get('/scrape', async (req, res) => {
                 // Load HTML into Cheerio for parsing
                 const $ = cheerio.load(response.data);
                 //console.log($.html())
+                await page.goto('http://' + IPAddress, {waitUntil: 'networkidle2'});
 
+
+                await page.waitForSelector('#monitor-level-tank', {visible: true});
+                console.log('Waiting for element click...')
                 // Extract the value from the webpage (customize the selector as needed)
                 //const scrapedValue = 3.1415926535;
                 const scrapedValue = parseFloat($('#monitor-level-tank').text());
+        
                 //console.log(scrapedValue)
-
+                const float = scrapedValue;
+                console.log(float);
                 // Store the scraped value, IP, and timestamp in the database
                 const insertQuery = `INSERT INTO SensorData (SensorIPAddress, Value, timestamp) 
                                      VALUES (@ip_address, @scraped_value, GETDATE())`;
                 await pool.request()
                     .input('ip_address', sql.VarChar, ip)
-                    .input('scraped_value', sql.Float, scrapedValue)
+                    .input('scraped_value', sql.Float, float)
                     .query(insertQuery);
 
             } catch (err) {
