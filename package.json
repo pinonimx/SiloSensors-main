@@ -1,0 +1,19 @@
+{
+  "name": "nodefiles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scrapePuppeteer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mssql": "^11.0.1",
+    "puppeteer": "^23.3.0",
+    "require": "^0.4.4",
+    "tedious": "^18.6.1"
+  }
+}
